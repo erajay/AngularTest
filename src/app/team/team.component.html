@@ -1,0 +1,71 @@
+<h3>Team List( All teams click on team to see details)</h3>
+
+
+<ul *ngFor="let team of allteam">
+    <li (click)="teamDeail(team.id)">
+      <img height="30" width="30" src="{{this.URL}}/team/{{team.logoUri}}" />  {{team.name}}
+
+    </li>
+</ul>
+<h3>Team Details(Players)</h3>
+
+<div *ngIf="(p_detail | json) != '[]'">
+<div *ngIf="p_detail.status;else NotPlayer">     
+    
+<ul  *ngFor="let player of p_detail.data">
+    <li *ngFor="let play_det of player.players">
+        <p >  <img height="35" width="35" src="{{this.URL}}/player/{{play_det.imageUri}}" />{{play_det.firstName}} {{play_det.lastName}}</p>
+  </li>
+</ul>
+</div>
+<ng-template  #NotPlayer>
+    No Players added in This Team 
+</ng-template>
+</div>
+
+<h3>Match Details</h3>
+
+<div *ngIf="(m_detail | json) != '[]'">
+   <div *ngIf="m_detail.status">
+<ul  *ngFor="let matches of m_detail.data">
+  <li *ngFor="let match_det of matches.matches">
+     
+     
+     <p>{{matches.name}} : {{match_det.name}} on Date {{match_det.created_at | date:'medium'}}
+    </p>
+    <p (click)="winners(match_det.pivot.winnerTeamId)"> For winner details click to me </p>
+       <h3>  {{winner.name}}</h3> 
+             
+          
+          
+</li>
+<li *ngFor="let match_det of matches.matches2">
+     
+     
+    <p>{{matches.name}} :  {{match_det.name}} on Date {{match_det.created_at | date:'medium'}}
+        
+    </p>
+    <p (click)="winners2(match_det.pivot.winnerTeamId)">For winner details click to me</p>
+    <h3 >{{winner2.name}}</h3> 
+    
+</li>
+</ul>
+</div>
+<div *ngIf="m_detail.status=='false'">
+    No Match found in This Team
+</div>
+
+
+</div>
+
+<h3>Points Details</h3>
+
+<div *ngIf="(point_detail | json) != '[]'">
+<div *ngIf="point_detail.status else NOPOINT">
+  <h4 >{{point_detail.point }} Points</h4>
+</div>
+
+<ng-template  #NOPOINT>
+    No Point added in This Team 
+</ng-template>
+</div>
