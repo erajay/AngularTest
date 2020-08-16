@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TeamService {
 
-  public REST_API_SERVER = 'http://localhost/cricket/public';
+  public REST_API_SERVER = 'http://localhost/cricket_angular/backend/public';
 
   constructor(private httpClient: HttpClient) {}
 
